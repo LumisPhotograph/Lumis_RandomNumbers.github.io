@@ -221,8 +221,9 @@
         /* DISPLAY BOX */
         #display-box {
             position: relative;
-            aspect-ratio: 16/9;
-            width: clamp(240px, 60%, 640px);
+            min-width: clamp(180px, 35%, 420px);
+            min-height: clamp(90px, 14%, 160px);
+            padding: clamp(18px, 3%, 40px) clamp(32px, 6%, 80px);
             border-radius: 24px;
             display: flex;
             justify-content: center;
@@ -276,7 +277,7 @@
 
         #number-display {
             font-family: var(--number-font);
-            font-size: clamp(40px, 10vw, 110px);
+            font-size: clamp(32px, 8vw, 88px);
             font-weight: 800;
             color: var(--text);
             position: relative;
@@ -305,19 +306,17 @@
             font-size: clamp(13px,2vw,18px);
             font-family: var(--ui-font);
             font-weight: 700;
-            border: none;
             border-radius: 50px;
             cursor: pointer;
             overflow: hidden;
             touch-action: manipulation;
             white-space: nowrap;
-            /* Pure blue liquid glass button */
-            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+            background: var(--glass-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            color: #fff;
-            border: 1.5px solid rgba(255,255,255,0.45);
-            box-shadow: 0 4px 24px rgba(37,99,235,0.40), 0 1.5px 0 rgba(255,255,255,0.55) inset;
+            color: var(--text);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 0 4px 24px rgba(100,120,200,0.18), 0 1.5px 0 var(--glass-highlight) inset;
             transition: transform 0.18s, box-shadow 0.25s, filter 0.2s;
         }
         #generate-btn::before {
@@ -325,14 +324,15 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 50%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%);
+            background: linear-gradient(180deg, var(--glass-highlight) 0%, transparent 100%);
             border-radius: 50px 50px 0 0;
             pointer-events: none;
         }
         #generate-btn:hover {
             transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 8px 36px rgba(37,99,235,0.55), 0 1.5px 0 rgba(255,255,255,0.55) inset;
-            filter: brightness(1.08);
+            color: var(--accent);
+            box-shadow: 0 8px 36px var(--accent-glow), 0 1.5px 0 var(--glass-highlight) inset;
+            filter: brightness(1.06);
         }
         #generate-btn:active { transform: scale(0.96); }
 
@@ -366,6 +366,10 @@
             background: rgba(0,0,0,0.08);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
+            pointer-events: none;
+        }
+        #history-panel.open #history-backdrop {
+            pointer-events: auto;
         }
 
         #history-box {
@@ -483,15 +487,15 @@
             font-size: clamp(12px,1.8vw,16px);
             font-family: var(--ui-font);
             font-weight: 700;
-            background: linear-gradient(180deg, #f87171 0%, #ef4444 100%);
-            color: #fff;
-            border: 1.5px solid rgba(255,255,255,0.45);
+            background: var(--glass-bg);
+            color: var(--text);
+            border: 1.5px solid var(--glass-border);
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.2s;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 4px 20px rgba(239,68,68,0.38), 0 1px 0 rgba(255,255,255,0.55) inset;
+            box-shadow: 0 4px 20px rgba(100,120,200,0.12), 0 1px 0 var(--glass-highlight) inset;
             position: relative;
             overflow: hidden;
         }
@@ -500,14 +504,14 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 50%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%);
+            background: linear-gradient(180deg, var(--glass-highlight) 0%, transparent 100%);
             border-radius: 50px 50px 0 0;
             pointer-events: none;
         }
         #clear-btn:hover {
             transform: scale(1.04);
-            box-shadow: 0 6px 28px rgba(239,68,68,0.52), 0 1px 0 rgba(255,255,255,0.55) inset;
-            filter: brightness(1.08);
+            color: var(--accent);
+            box-shadow: 0 6px 28px var(--accent-glow), 0 1px 0 var(--glass-highlight) inset;
         }
         #clear-btn:active { transform: scale(0.95); }
 
@@ -590,9 +594,10 @@
         .modal-content button:hover { transform: scale(1.05); filter: brightness(1.08); }
 
         #accept-btn {
-            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
-            color: #fff;
-            box-shadow: 0 4px 18px rgba(37,99,235,0.4), 0 1px 0 rgba(255,255,255,0.45) inset;
+            background: var(--glass-bg);
+            color: var(--text);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 0 4px 18px rgba(100,120,200,0.12), 0 1px 0 var(--glass-highlight) inset;
         }
         #decline-btn {
             background: var(--glass-bg);
@@ -685,17 +690,18 @@
             display: inline-block;
             margin-top: 10px;
             padding: 8px 22px;
-            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
-            color: #fff;
-            border: 1.5px solid rgba(255,255,255,0.45);
+            background: var(--glass-bg);
+            color: var(--text);
+            border: 1.5px solid var(--glass-border);
             border-radius: 50px;
             cursor: pointer;
             font-weight: 700;
             font-family: var(--ui-font);
             transition: all 0.2s;
-            box-shadow: 0 4px 16px rgba(37,99,235,0.4), 0 1px 0 rgba(255,255,255,0.45) inset;
+            box-shadow: 0 4px 16px rgba(100,120,200,0.12), 0 1px 0 var(--glass-highlight) inset;
+            backdrop-filter: blur(12px);
         }
-        #save-range:hover { transform: scale(1.04); filter: brightness(1.08); }
+        #save-range:hover { transform: scale(1.04); color: var(--accent); border-color: var(--accent); }
 
         #close-settings {
             margin-top: 14px;
@@ -719,17 +725,18 @@
             width: 100%;
             padding: 10px;
             margin: 5px 0;
-            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
-            color: #fff;
-            border: 1.5px solid rgba(255,255,255,0.45);
+            background: var(--glass-bg);
+            color: var(--text);
+            border: 1.5px solid var(--glass-border);
             border-radius: 12px;
             cursor: pointer;
             font-family: var(--ui-font);
             font-weight: 700;
             transition: all 0.2s;
-            box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset;
+            box-shadow: 0 1px 0 var(--glass-highlight) inset;
+            backdrop-filter: blur(12px);
         }
-        .link-btn:hover { transform: translateX(4px); filter: brightness(1.08); }
+        .link-btn:hover { transform: translateX(4px); color: var(--accent); border-color: var(--accent); }
 
         .lang-btn, .mode-btn {
             padding: 8px 18px;
@@ -760,20 +767,6 @@
             10%  { opacity: 0.6; }
             90%  { opacity: 0.2; }
             100% { transform: translateY(-110%) scale(1.2); opacity: 0; }
-        }
-
-        /* CONFETTI */
-        .confetti-piece {
-            position: absolute;
-            width: 8px; height: 8px;
-            border-radius: 2px;
-            pointer-events: none;
-            z-index: 5;
-            animation: confettiFall 0.8s ease-out forwards;
-        }
-        @keyframes confettiFall {
-            0%   { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0.3); opacity: 0; }
         }
 
         /* RIPPLE */
@@ -910,7 +903,7 @@
             <div class="option" data-option="developers">开发者</div>
             <div class="option" data-option="links">友情链接</div>
             <div class="option" data-option="languages">语言</div>
-            <div class="option" data-option="darkmode">暗黑模式</div>
+            <div class="option" data-option="darkmode">暗色模式（设置）</div>
             <div class="option" data-option="cookies" id="cookies-option" style="display:none;">接受 Cookie 以储存</div>
         </div>
         <div id="sub-content"></div>
@@ -944,27 +937,39 @@ const translations = {
     zh: {
         title: '随机数生成器', generate: '生成随机数', clear: '清除',
         settings: '设置', range: '范围', developers: '开发者', links: '不妨试试这些',
-        languages: '语言', darkmode: '暗黑模式', cookies: '接受 Cookie 以储存',
+        languages: '语言', darkmode: '暗色模式（设置）', cookies: '接受 Cookie 以储存',
         close: '关闭', generated: '已生成数字', consent: '接受 Cookie 以保存数据',
         yes: '是', no: '否',
         devInfo: 'Lumis 独立开发<br>此项目离不开众多开源项目，在此感谢。<br>联系方式：<br>+86 13830791385<br>Leicaoptics@qq.com<br>Lumis_Photograph@outlook.com<br>Leicaoptics3017@gmail.com',
         linkUndertale: 'Undertale', linkDeltarune: 'deltarune',
         linkUt10: 'Undertale 10周年游戏（中文）', langZh: '简体中文', langEn: 'English',
-        langJa: '日本語', langRu: 'Русский',
+        langJa: '日本語', langRu: 'Русский', langKo: '한국어', langFr: 'Français',
+        langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: '繁體中文',
         saveRange: '保存', allGenerated: '所有数字已生成！',
         enterValid: '请输入有效的范围（最小值 < 最大值）', enterNumber: '需要输入数字',
-        light: '亮模式', dark: '暗模式', history: '历史'
+        light: '亮色模式', dark: '暗色模式', history: '历史'
     },
     en: {
         title: 'Random Number Generator', generate: 'Generate', clear: 'Clear',
         settings: 'Settings', range: 'Range', developers: 'Developers', links: 'Try These Out',
-        languages: 'Languages', darkmode: 'Dark Mode', cookies: 'Accept Cookies to store',
+        languages: 'Languages', darkmode: 'Dark Mode (Settings)', cookies: 'Accept Cookies to store',
         close: 'Close', generated: 'Generated Numbers', consent: 'Accept Cookies to save data',
         yes: 'Yes', no: 'No',
         devInfo: 'Lumis independently developed<br>This project is inseparable from many open-source projects, thank you.<br>Contact:<br>+86 13830791385<br>Leicaoptics@qq.com<br>Lumis_Photograph@outlook.com<br>Leicaoptics3017@gmail.com',
         linkUndertale: 'Undertale', linkDeltarune: 'deltarune',
         linkUt10: 'Undertale 10th Anniversary Game (Chinese)', langZh: 'Simplified Chinese', langEn: 'English',
-        langJa: '日本語', langRu: 'Русский',
+        langJa: '日本語', langRu: 'Русский', langKo: '한국어', langFr: 'Français',
+        langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Traditional Chinese',
         saveRange: 'Save', allGenerated: 'All numbers have been generated!',
         enterValid: 'Please enter a valid range (min < max)', enterNumber: 'Need to input number',
         light: 'Light Mode', dark: 'Dark Mode', history: 'History'
@@ -972,13 +977,19 @@ const translations = {
     ja: {
         title: 'ランダム数生成器', generate: '生成する', clear: 'クリア',
         settings: '設定', range: '範囲', developers: '開発者', links: 'おすすめリンク',
-        languages: '言語', darkmode: 'ダークモード', cookies: 'Cookieを許可して保存',
+        languages: '言語', darkmode: 'ダークモード（設定）', cookies: 'Cookieを許可して保存',
         close: '閉じる', generated: '生成済みの数字', consent: 'Cookieを許可してデータを保存',
         yes: 'はい', no: 'いいえ',
         devInfo: 'Lumis が独立開発<br>多くのオープンソースプロジェクトのおかげです。<br>連絡先：<br>+86 13830791385<br>Leicaoptics@qq.com<br>Lumis_Photograph@outlook.com<br>Leicaoptics3017@gmail.com',
         linkUndertale: 'Undertale', linkDeltarune: 'deltarune',
         linkUt10: 'Undertale 10周年ゲーム（中国語）', langZh: '簡体字中国語', langEn: 'English',
-        langJa: '日本語', langRu: 'Русский',
+        langJa: '日本語', langRu: 'Русский', langKo: '한국어', langFr: 'Français',
+        langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: '繁體中文',
         saveRange: '保存', allGenerated: 'すべての数字が生成されました！',
         enterValid: '有効な範囲を入力してください（最小 < 最大）', enterNumber: '数字を入力してください',
         light: 'ライトモード', dark: 'ダークモード', history: '履歴'
@@ -986,16 +997,231 @@ const translations = {
     ru: {
         title: 'Генератор случайных чисел', generate: 'Генерировать', clear: 'Очистить',
         settings: 'Настройки', range: 'Диапазон', developers: 'Разработчики', links: 'Попробуйте это',
-        languages: 'Язык', darkmode: 'Тёмный режим', cookies: 'Принять куки для хранения',
+        languages: 'Язык', darkmode: 'Тёмный режим (настройки)', cookies: 'Принять куки для хранения',
         close: 'Закрыть', generated: 'Сгенерированные числа', consent: 'Принять куки для сохранения данных',
         yes: 'Да', no: 'Нет',
         devInfo: 'Разработано Lumis самостоятельно<br>Проект использует множество открытых проектов, спасибо им.<br>Контакты:<br>+86 13830791385<br>Leicaoptics@qq.com<br>Lumis_Photograph@outlook.com<br>Leicaoptics3017@gmail.com',
         linkUndertale: 'Undertale', linkDeltarune: 'deltarune',
         linkUt10: 'Undertale 10-летие (китайский)', langZh: 'Упрощённый китайский', langEn: 'English',
-        langJa: '日本語', langRu: 'Русский',
+        langJa: '日本語', langRu: 'Русский', langKo: '한국어', langFr: 'Français',
+        langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Традиційний китайський',
         saveRange: 'Сохранить', allGenerated: 'Все числа сгенерированы!',
         enterValid: 'Введите допустимый диапазон (мин < макс)', enterNumber: 'Нужно ввести число',
         light: 'Светлый режим', dark: 'Тёмный режим', history: 'История'
+    },
+    ko: {
+        title: '랜덤 숫자 생성기', generate: '생성', clear: '지우기',
+        settings: '설정', range: '범위', developers: '개발자', links: '추천 링크',
+        languages: '언어', darkmode: '다크 모드 (설정)', cookies: '쿠키 허용하여 저장',
+        close: '닫기', generated: '생성된 숫자', consent: '데이터 저장을 위해 쿠키 허용',
+        yes: '예', no: '아니오',
+        devInfo: 'Lumis 독립 개발<br>많은 오픈소스 프로젝트 덕분입니다.<br>연락처:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10주년 게임 (중국어)',
+        langZh: '중국어 간체', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: '繁體中文',
+        saveRange: '저장', allGenerated: '모든 숫자가 생성되었습니다!',
+        enterValid: '유효한 범위를 입력하세요 (최소 < 최대)', enterNumber: '숫자를 입력하세요',
+        light: '라이트 모드', dark: '다크 모드', history: '기록'
+    },
+    fr: {
+        title: 'Générateur de nombres aléatoires', generate: 'Générer', clear: 'Effacer',
+        settings: 'Paramètres', range: 'Plage', developers: 'Développeurs', links: 'Essayez ces liens',
+        languages: 'Langues', darkmode: 'Mode sombre (paramètres)', cookies: 'Accepter les cookies pour enregistrer',
+        close: 'Fermer', generated: 'Nombres générés', consent: 'Accepter les cookies pour sauvegarder',
+        yes: 'Oui', no: 'Non',
+        devInfo: 'Développé par Lumis<br>Merci aux nombreux projets open-source.<br>Contact:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10e anniversaire (chinois)',
+        langZh: 'Chinois simplifié', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Chinois traditionnel',
+        saveRange: 'Enregistrer', allGenerated: 'Tous les nombres ont été générés !',
+        enterValid: 'Entrez une plage valide (min < max)', enterNumber: 'Veuillez entrer un nombre',
+        light: 'Mode clair', dark: 'Mode sombre', history: 'Historique'
+    },
+    de: {
+        title: 'Zufallszahlengenerator', generate: 'Generieren', clear: 'Löschen',
+        settings: 'Einstellungen', range: 'Bereich', developers: 'Entwickler', links: 'Empfehlungen',
+        languages: 'Sprachen', darkmode: 'Dunkelmodus (Einstellungen)', cookies: 'Cookies akzeptieren zum Speichern',
+        close: 'Schließen', generated: 'Generierte Zahlen', consent: 'Cookies akzeptieren zum Speichern',
+        yes: 'Ja', no: 'Nein',
+        devInfo: 'Von Lumis entwickelt<br>Dank vieler Open-Source-Projekte.<br>Kontakt:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10. Jubiläum (Chinesisch)',
+        langZh: 'Vereinfachtes Chinesisch', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Traditionelles Chinesisch',
+        saveRange: 'Speichern', allGenerated: 'Alle Zahlen wurden generiert!',
+        enterValid: 'Bitte gültigen Bereich eingeben (min < max)', enterNumber: 'Zahl eingeben',
+        light: 'Hellmodus', dark: 'Dunkelmodus', history: 'Verlauf'
+    },
+    es: {
+        title: 'Generador de números aleatorios', generate: 'Generar', clear: 'Borrar',
+        settings: 'Configuración', range: 'Rango', developers: 'Desarrolladores', links: 'Prueba estos',
+        languages: 'Idiomas', darkmode: 'Modo oscuro (configuración)', cookies: 'Aceptar cookies para guardar',
+        close: 'Cerrar', generated: 'Números generados', consent: 'Aceptar cookies para guardar datos',
+        yes: 'Sí', no: 'No',
+        devInfo: 'Desarrollado por Lumis<br>Gracias a muchos proyectos de código abierto.<br>Contacto:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10 aniversario (chino)',
+        langZh: 'Chino simplificado', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Chino tradicional',
+        saveRange: 'Guardar', allGenerated: '¡Todos los números han sido generados!',
+        enterValid: 'Ingrese un rango válido (min < max)', enterNumber: 'Ingrese un número',
+        light: 'Modo claro', dark: 'Modo oscuro', history: 'Historial'
+    },
+    pt: {
+        title: 'Gerador de números aleatórios', generate: 'Gerar', clear: 'Limpar',
+        settings: 'Configurações', range: 'Intervalo', developers: 'Desenvolvedores', links: 'Experimente',
+        languages: 'Idiomas', darkmode: 'Modo escuro (configurações)', cookies: 'Aceitar cookies para salvar',
+        close: 'Fechar', generated: 'Números gerados', consent: 'Aceitar cookies para salvar dados',
+        yes: 'Sim', no: 'Não',
+        devInfo: 'Desenvolvido por Lumis<br>Obrigado a muitos projetos de código aberto.<br>Contato:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10º aniversário (chinês)',
+        langZh: 'Chinês simplificado', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Chinês tradicional',
+        saveRange: 'Salvar', allGenerated: 'Todos os números foram gerados!',
+        enterValid: 'Insira um intervalo válido (min < max)', enterNumber: 'Insira um número',
+        light: 'Modo claro', dark: 'Modo escuro', history: 'Histórico'
+    },
+    it: {
+        title: 'Generatore di numeri casuali', generate: 'Genera', clear: 'Cancella',
+        settings: 'Impostazioni', range: 'Intervallo', developers: 'Sviluppatori', links: 'Prova questi',
+        languages: 'Lingue', darkmode: 'Modalità scura (impostazioni)', cookies: 'Accetta cookie per salvare',
+        close: 'Chiudi', generated: 'Numeri generati', consent: 'Accetta cookie per salvare i dati',
+        yes: 'Sì', no: 'No',
+        devInfo: 'Sviluppato da Lumis<br>Grazie a molti progetti open source.<br>Contatti:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10° anniversario (cinese)',
+        langZh: 'Cinese semplificato', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Cinese tradizionale',
+        saveRange: 'Salva', allGenerated: 'Tutti i numeri sono stati generati!',
+        enterValid: 'Inserisci un intervallo valido (min < max)', enterNumber: 'Inserisci un numero',
+        light: 'Modalità chiara', dark: 'Modalità scura', history: 'Cronologia'
+    },
+    ar: {
+        title: 'مولد الأرقام العشوائية', generate: 'توليد', clear: 'مسح',
+        settings: 'الإعدادات', range: 'النطاق', developers: 'المطورون', links: 'جرب هذه',
+        languages: 'اللغات', darkmode: 'الوضع المظلم (الإعدادات)', cookies: 'قبول ملفات تعريف الارتباط',
+        close: 'إغلاق', generated: 'الأرقام المولدة', consent: 'قبول ملفات تعريف الارتباط لحفظ البيانات',
+        yes: 'نعم', no: 'لا',
+        devInfo: 'طور بواسطة Lumis<br>شكرًا للمشاريع مفتوحة المصدر.<br>تواصل:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'ذكرى Undertale العاشرة (صيني)',
+        langZh: 'صيني مبسط', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'صيني تقليدي',
+        saveRange: 'حفظ', allGenerated: 'تم توليد جميع الأرقام!',
+        enterValid: 'أدخل نطاقًا صالحًا (الحد الأدنى < الحد الأقصى)', enterNumber: 'أدخل رقمًا',
+        light: 'الوضع الفاتح', dark: 'الوضع المظلم', history: 'السجل'
+    },
+    tr: {
+        title: 'Rastgele Sayı Üreteci', generate: 'Üret', clear: 'Temizle',
+        settings: 'Ayarlar', range: 'Aralık', developers: 'Geliştiriciler', links: 'Bunları Dene',
+        languages: 'Diller', darkmode: 'Karanlık Mod (Ayarlar)', cookies: 'Kaydetmek için çerezleri kabul et',
+        close: 'Kapat', generated: 'Üretilen Sayılar', consent: 'Verileri kaydetmek için çerezleri kabul et',
+        yes: 'Evet', no: 'Hayır',
+        devInfo: 'Lumis tarafından geliştirildi<br>Pek çok açık kaynak projesine teşekkürler.<br>İletişim:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10. Yıl Oyunu (Çince)',
+        langZh: 'Basitleştirilmiş Çince', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Geleneksel Çince',
+        saveRange: 'Kaydet', allGenerated: 'Tüm sayılar üretildi!',
+        enterValid: 'Geçerli bir aralık girin (min < max)', enterNumber: 'Bir sayı girin',
+        light: 'Aydınlık Mod', dark: 'Karanlık Mod', history: 'Geçmiş'
+    },
+    pl: {
+        title: 'Generator liczb losowych', generate: 'Generuj', clear: 'Wyczyść',
+        settings: 'Ustawienia', range: 'Zakres', developers: 'Deweloperzy', links: 'Wypróbuj',
+        languages: 'Języki', darkmode: 'Tryb ciemny (ustawienia)', cookies: 'Zaakceptuj pliki cookie, aby zapisać',
+        close: 'Zamknij', generated: 'Wygenerowane liczby', consent: 'Zaakceptuj pliki cookie, aby zapisać dane',
+        yes: 'Tak', no: 'Nie',
+        devInfo: 'Opracowane przez Lumis<br>Dziękujemy wielu projektom open source.<br>Kontakt:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10. rocznica (chiński)',
+        langZh: 'Chiński uproszczony', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Chiński tradycyjny',
+        saveRange: 'Zapisz', allGenerated: 'Wszystkie liczby zostały wygenerowane!',
+        enterValid: 'Wprowadź prawidłowy zakres (min < max)', enterNumber: 'Wprowadź liczbę',
+        light: 'Tryb jasny', dark: 'Tryb ciemny', history: 'Historia'
+    },
+    vi: {
+        title: 'Bộ tạo số ngẫu nhiên', generate: 'Tạo', clear: 'Xóa',
+        settings: 'Cài đặt', range: 'Phạm vi', developers: 'Nhà phát triển', links: 'Thử những điều này',
+        languages: 'Ngôn ngữ', darkmode: 'Chế độ tối (cài đặt)', cookies: 'Chấp nhận cookie để lưu',
+        close: 'Đóng', generated: 'Các số đã tạo', consent: 'Chấp nhận cookie để lưu dữ liệu',
+        yes: 'Có', no: 'Không',
+        devInfo: 'Phát triển bởi Lumis<br>Cảm ơn nhiều dự án mã nguồn mở.<br>Liên hệ:<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10 năm (tiếng Trung)',
+        langZh: 'Tiếng Trung giản thể', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: 'Tiếng Trung phồn thể',
+        saveRange: 'Lưu', allGenerated: 'Tất cả các số đã được tạo!',
+        enterValid: 'Nhập phạm vi hợp lệ (min < max)', enterNumber: 'Cần nhập số',
+        light: 'Chế độ sáng', dark: 'Chế độ tối', history: 'Lịch sử'
+    },
+    zhTw: {
+        title: '隨機數生成器', generate: '生成隨機數', clear: '清除',
+        settings: '設定', range: '範圍', developers: '開發者', links: '不妨試試這些',
+        languages: '語言', darkmode: '暗色模式（設定）', cookies: '接受 Cookie 以儲存',
+        close: '關閉', generated: '已生成數字', consent: '接受 Cookie 以保存數據',
+        yes: '是', no: '否',
+        devInfo: 'Lumis 獨立開發<br>此項目離不開眾多開源項目，在此感謝。<br>聯繫方式：<br>+86 13830791385<br>Leicaoptics@qq.com',
+        linkUndertale: 'Undertale', linkDeltarune: 'deltarune', linkUt10: 'Undertale 10周年遊戲（中文）',
+        langZh: '簡體中文', langEn: 'English', langJa: '日本語', langRu: 'Русский', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch', langEs: 'Español', langPt: 'Português', langIt: 'Italiano',
+        langAr: 'العربية', langHi: 'हिन्दी', langTr: 'Türkçe', langPl: 'Polski',
+        langNl: 'Nederlands', langSv: 'Svenska', langNo: 'Norsk', langDa: 'Dansk',
+        langFi: 'Suomi', langCz: 'Čeština', langHu: 'Magyar', langRo: 'Română',
+        langUk: 'Українська', langTh: 'ภาษาไทย', langVi: 'Tiếng Việt', langId: 'Bahasa Indonesia',
+        langMs: 'Bahasa Melayu', langZhTw: '繁體中文',
+        saveRange: '保存', allGenerated: '所有數字已生成！',
+        enterValid: '請輸入有效的範圍（最小值 < 最大值）', enterNumber: '需要輸入數字',
+        light: '亮色模式', dark: '暗色模式', history: '歷史'
     }
 };
 
@@ -1050,32 +1276,6 @@ window.addEventListener('resize', resizeStage);
         container.appendChild(p);
     }
 })();
-
-/* Confetti */
-function burstConfetti(originEl) {
-    const rect = originEl.getBoundingClientRect();
-    const stageRect = document.getElementById('stage').getBoundingClientRect();
-    const cx = rect.left - stageRect.left + rect.width / 2;
-    const cy = rect.top - stageRect.top + rect.height / 2;
-    const colors = ['#3b82f6','#10b981','#f59e0b','#ef4444','#a78bfa','#ffffff'];
-    for (let i = 0; i < 20; i++) {
-        const c = document.createElement('div');
-        c.className = 'confetti-piece';
-        const angle = Math.random() * 360;
-        const dist = Math.random() * 100 + 40;
-        const tx = Math.cos(angle * Math.PI / 180) * dist;
-        const ty = Math.sin(angle * Math.PI / 180) * dist - 30;
-        c.style.cssText = `
-            left:${cx - 4}px; top:${cy - 4}px;
-            background:${colors[Math.floor(Math.random()*colors.length)]};
-            --tx:${tx}px; --ty:${ty}px;
-            --rot:${Math.random()*360}deg;
-            animation-duration:${Math.random()*0.4+0.6}s;
-        `;
-        document.getElementById('stage').appendChild(c);
-        c.addEventListener('animationend', () => c.remove());
-    }
-}
 
 /* Ripple */
 function addRipple(btn, e) {
@@ -1163,9 +1363,9 @@ function generateNumber(e) {
 
     const display = document.getElementById('number-display');
     const box = document.getElementById('display-box');
-    let shuffles = 0, maxShuffles = 10;
-    // Accelerating interval: fast at start, slow at end for smoother feel
-    const delays = [20, 25, 30, 35, 45, 55, 65, 80, 100, 120];
+    let shuffles = 0, maxShuffles = 8;
+    // Faster interval
+    const delays = [15, 18, 22, 28, 35, 45, 58, 75];
     function doShuffle() {
         display.textContent = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN;
         shuffles++;
@@ -1178,7 +1378,6 @@ function generateNumber(e) {
             void box.offsetWidth;
             box.classList.add('glow', 'pulse');
             box.addEventListener('animationend', () => box.classList.remove('pulse'), { once: true });
-            burstConfetti(box);
         } else {
             setTimeout(doShuffle, delays[shuffles] || 50);
         }
@@ -1255,9 +1454,17 @@ function showSubContent(option) {
             sub.appendChild(btn);
         });
     } else if (option === 'languages') {
-        [['zh','langZh'],['en','langEn'],['ja','langJa'],['ru','langRu']].forEach(([lang, key]) => {
+        const allLangs = [
+            ['zh','langZh'],['zhTw','langZhTw'],['en','langEn'],['ja','langJa'],
+            ['ko','langKo'],['ru','langRu'],['fr','langFr'],['de','langDe'],
+            ['es','langEs'],['pt','langPt'],['it','langIt'],['ar','langAr'],
+            ['tr','langTr'],['pl','langPl'],['vi','langVi']
+        ];
+        allLangs.forEach(([lang, key]) => {
             const btn = document.createElement('button');
-            btn.className = 'lang-btn'; btn.textContent = translations[currentLang][key];
+            btn.className = 'lang-btn';
+            const t = translations[currentLang] || translations['zh'];
+            btn.textContent = t[key] || key;
             btn.onclick = () => changeLanguage(lang);
             sub.appendChild(btn);
         });
@@ -1316,10 +1523,15 @@ function easter1225() {
 document.getElementById('generate-btn').addEventListener('click', generateNumber);
 document.getElementById('clear-btn').addEventListener('click', clearNumbers);
 
-document.getElementById('settings-btn').addEventListener('click', () => {
+function openSettings() {
     document.getElementById('settings-modal').style.display = 'flex';
     document.getElementById('sub-content').style.display = 'none';
     document.getElementById('cookies-option').style.display = useStorage ? 'none' : 'block';
+}
+const settingsBtn = document.getElementById('settings-btn');
+settingsBtn.addEventListener('click', openSettings);
+settingsBtn.addEventListener('pointerdown', function(e) {
+    if (e.button === 0) { e.preventDefault(); openSettings(); }
 });
 document.getElementById('close-settings').addEventListener('click', () => {
     document.getElementById('settings-modal').style.display = 'none';
